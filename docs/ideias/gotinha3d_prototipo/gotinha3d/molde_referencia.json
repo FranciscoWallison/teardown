@@ -1,0 +1,125 @@
+{
+ "fonte": "poring.act (apenas estrutura)",
+ "versao_act": 2.5,
+ "acoes": {
+  "idle": {
+   "frames": 4,
+   "intervalo": 4.0,
+   "ms_por_frame": 96,
+   "duracao_ms": 384,
+   "sons": [],
+   "altura_px": [
+    33,
+    39
+   ],
+   "largura_px": [
+    37,
+    41
+   ],
+   "base_y": [
+    6,
+    9
+   ]
+  },
+  "walk": {
+   "frames": 10,
+   "intervalo": 1.0,
+   "ms_por_frame": 24,
+   "duracao_ms": 240,
+   "sons": [
+    [
+     5,
+     "poring_move.wav"
+    ]
+   ],
+   "altura_px": [
+    30,
+    34
+   ],
+   "largura_px": [
+    34,
+    41
+   ],
+   "base_y": [
+    -7,
+    4
+   ]
+  },
+  "attack": {
+   "frames": 28,
+   "intervalo": 1.0,
+   "ms_por_frame": 24,
+   "duracao_ms": 672,
+   "sons": [
+    [
+     11,
+     "poring_attack.wav"
+    ],
+    [
+     12,
+     "atk"
+    ]
+   ],
+   "altura_px": [
+    30,
+    31
+   ],
+   "largura_px": [
+    35,
+    41
+   ],
+   "base_y": [
+    -9,
+    4
+   ]
+  },
+  "hurt": {
+   "frames": 5,
+   "intervalo": 4.0,
+   "ms_por_frame": 96,
+   "duracao_ms": 480,
+   "sons": [
+    [
+     1,
+     "poring_damage.wav"
+    ]
+   ],
+   "altura_px": [
+    32,
+    36
+   ],
+   "largura_px": [
+    37,
+    39
+   ],
+   "base_y": [
+    3,
+    6
+   ]
+  },
+  "death": {
+   "frames": 17,
+   "intervalo": 1.0,
+   "ms_por_frame": 24,
+   "duracao_ms": 408,
+   "sons": [
+    [
+     1,
+     "poring_die.wav"
+    ]
+   ],
+   "altura_px": [
+    32,
+    360
+   ],
+   "largura_px": [
+    39,
+    370
+   ],
+   "base_y": [
+    3,
+    180
+   ]
+  }
+ }
+}

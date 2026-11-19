@@ -1,0 +1,7 @@
+{
+  "name": "gotinha3d-prototipo",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "dependencies": { "three": "0.170.0", "playwright": "^1.49.0" }
+}

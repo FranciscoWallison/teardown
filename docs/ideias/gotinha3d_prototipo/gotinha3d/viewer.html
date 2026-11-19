@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><title>Gotinha 3D – visualizador</title>
+<style>
+  :root{--bg:#262a30;--fg:#e6e6e6;--acc:#428ce6}
+  body{margin:0;background:var(--bg);color:var(--fg);font:14px system-ui,sans-serif;display:flex;flex-direction:column;align-items:center;gap:12px;padding:16px}
+  .stage{background:#465a46;border-radius:8px;padding:8px}
+  img{width:448px;height:416px;image-rendering:pixelated;display:block}
+  .row{display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
+  button{background:#353b44;color:var(--fg);border:1px solid #4a525e;border-radius:6px;padding:6px 10px;cursor:pointer}
+  button.on{background:var(--acc);border-color:var(--acc);color:#fff}
+  small{opacity:.7;max-width:460px;text-align:center}
+</style></head><body>
+<h3 style="margin:0">Gotinha 3D – render ao vivo</h3>
+<div class="stage"><img id="view" alt="frame"></div>
+<div class="row" id="acts"></div>
+<div class="row" id="dirs"></div>
+<div id="info"></div>
+<small>Este é o render 3D cru (antes da pixelização em Python). A versão final em pixel art e o .spr/.act saem do <code>rodar.bat</code>.</small>
+<iframe id="sim" src="scene.html" style="display:none"></iframe>
+<script>
+const MOLDE = {idle:[4,96], walk:[10,24], attack:[28,24], hurt:[5,96], death:[17,24]};  // frames, ms (do molde)
+const VIEWS = ['S','SW','W','NW','N'];
+let act = 'walk', view = 'SW', k = 0, last = 0;
+const mk = (id, items, get, set) => {
+  const box = document.getElementById(id);
+  items.forEach((it) => { const b = document.createElement('button'); b.textContent = it;
+    b.onclick = () => { set(it); k = 0; refresh(); }; box.appendChild(b); });
+  return () => [...box.children].forEach((b) => b.classList.toggle('on', b.textContent === get()));
+};
+const r1 = mk('acts', Object.keys(MOLDE), () => act, (v) => (act = v));
+const r2 = mk('dirs', VIEWS, () => view, (v) => (view = v));
+function refresh(){ r1(); r2(); }
+refresh();
+const frame = document.getElementById('sim');
+function tick(t){
+  const sim = frame.contentWindow && frame.contentWindow.SIM;
+  const [n, ms] = MOLDE[act];
+  if (sim && t - last >= ms) {
+    last = t;
+    document.getElementById('view').src = sim.render(act, k, n, view);
+    document.getElementById('info').textContent = `${act} · ${view} · frame ${k + 1}/${n} · ${ms} ms`;
+    k = act === 'death' ? Math.min(k + 1, n - 1) : (k + 1) % n;
+    if (act === 'death' && k === n - 1) setTimeout(() => { k = 0; }, 900);
+  }
+  requestAnimationFrame(tick);
+}
+requestAnimationFrame(tick);
+</script></body></html>
